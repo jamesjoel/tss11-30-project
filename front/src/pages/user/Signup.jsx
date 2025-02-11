@@ -7,6 +7,8 @@ import {useNavigate} from 'react-router-dom'
 import SignupFrmSchema from '../../schemas/SignupSchema'
 
 const Signup = () => {
+   let [preloader, setPreloader] = useState(false);
+
     let navigate = useNavigate();
     useEffect(()=>{
         localStorage.removeItem("name")
@@ -42,10 +44,13 @@ const Signup = () => {
             
         },
         onSubmit : (formData)=>{
+            setPreloader(true);
+
             axios
             .post(`${API_URL}/user`, formData)
             .then(response=>{
                 if(response.data.success==true){
+                    setPreloader(false);
                     navigate("/login");
                 }
             })
@@ -201,7 +206,7 @@ const Signup = () => {
                                     </div>
                                 </div>
                                 <div className="card-footer">
-                                    <button type='submit' className='template-btn'>Signup</button>
+                                    <button type='submit' className='template-btn'>Signup { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
                                 </div>
                             </div>
                         </div>

@@ -22,6 +22,8 @@ const end = dayjs().set('hour', 22).startOf('hour');
 const BookTable = () => {
   let param = useParams();
   let [hotelInfo, setHoteInfo] = useState({});
+  let [preloader, setPreloader] = useState(false);
+  
   useEffect(()=>{
     axios.get(`${API_URL}/hotels/${param.id}`).then(response=>{
       // console.log(response.data);
@@ -37,6 +39,8 @@ const BookTable = () => {
       tables : ""
     },
     onSubmit : (formData)=>{
+      setPreloader(true);
+
       console.log(formData)
     }
   })
@@ -119,7 +123,8 @@ const BookTable = () => {
                     </div>
                     
 
-                    <button type='submit' className='btn-block  template-btn'>Book Table</button>
+                    <button type='submit' className='btn-block btn btn-success'>Book Table { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+
                     
 
                   </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Header2 from '../../components/user/headers/Header'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {useFormik} from 'formik'
@@ -7,6 +7,8 @@ import {API_URL} from '../../constants/API_URL'
 import BusinessSchema from '../../schemas/BusinessSchema'
 
 const Signup = () => {
+    let [preloader, setPreloader] = useState(false);
+
     let navigate = useNavigate();
     let SignupFrm = useFormik({
         validationSchema : BusinessSchema,
@@ -22,8 +24,10 @@ const Signup = () => {
             repassword : ""
         },
         onSubmit : (formData)=>{
+            setPreloader(true);
             axios.post(`${API_URL}/business`, formData)
             .then(response=>{
+                setPreloader(false);
                 console.log(response.data);
                 navigate("/business/login")
             })
@@ -127,7 +131,7 @@ const Signup = () => {
                             
                         </div>
                         <div className="card-footer">
-                            <button type='submit' className='template-btn'>Register</button>
+                            <button type='submit' className='template-btn'>Register { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
                         </div>
                     </div>
                 </div>

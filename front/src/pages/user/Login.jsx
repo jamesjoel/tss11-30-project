@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/user/headers/Header'
 import {useFormik} from 'formik'
 import LoginFrmSchema from '../../schemas/LoginSchema'
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {API_URL} from '../../constants/API_URL'
 const Login = () => {
+    let [preloader, setPreloader] = useState(false);
+
     let navigate = useNavigate();
    
 
@@ -18,12 +20,14 @@ const Login = () => {
             password : ""
         },
         onSubmit : (formData)=>{
+            setPreloader(true);
             axios
             .post(`${API_URL}/userauth`, formData)
             .then(response=>{
                 // console.log(response.data);return;
                 if(response.data.success==true)
                 {
+                    setPreloader(false);
                     localStorage.setItem("access-token", response.data.access_token);
                     localStorage.setItem("name", response.data.user.name);
                     localStorage.setItem("email", response.data.user.email);
@@ -32,9 +36,11 @@ const Login = () => {
                 else
                 {
                     if(response.data.errType==1){
+                        setPreloader(false);
                         setErrMsg("This Username/Email and Password is Incorrect !")
                     }
                     if(response.data.errType==2){
+                        setPreloader(false);
                         setErrMsg("This Password is Incorrect !")
                     }
                 }
@@ -79,7 +85,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="card-footer">
-                            <button type='submit' className='template-btn'>Login</button>
+                            <button type='submit' className='template-btn'>Login { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
                             <p className='text-center text-danger'>{errMsg}</p>
                         </div>
                     </div>
