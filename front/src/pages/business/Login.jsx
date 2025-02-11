@@ -56,10 +56,24 @@ const Login = () => {
                             <div className="my-2">
                                 <label>Username</label>
                                 <input type='text' name='username' onChange={loginFrm.handleChange} className={'form-control ' + (loginFrm.errors.username && loginFrm.touched.username ? 'is-invalid' : '')} />
+                                {
+                                            loginFrm.errors.username && loginFrm.touched.username
+                                            ?
+                                            <small className='text-danger'>{loginFrm.errors.username}</small>
+                                            :
+                                            ''
+                                        }
                             </div>
                             <div className="my-2">
                                 <label>Password</label>
                                 <input type='password' name='password' onChange={loginFrm.handleChange} className={'form-control ' + (loginFrm.errors.password && loginFrm.touched.password ? 'is-invalid' : '')} />
+                                {
+                                            loginFrm.errors.password && loginFrm.touched.password
+                                            ?
+                                            <small className='text-danger'>{loginFrm.errors.password}</small>
+                                            :
+                                            ''
+                                        }
                             </div>
                         </div>
                         <div className="card-footer">

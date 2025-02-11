@@ -10,7 +10,7 @@ const AddHotels = () => {
     let addFrm = useFormik({
         validationSchema : HotelSchema,
         initialValues : {
-            hotelname : "",
+        hotelname : "",
         hotelimage : "",
         menuimage : "",
         address : "",
@@ -39,31 +39,73 @@ const AddHotels = () => {
             <div className="my-3">
                 <label>Hotel Name</label>
                 <input type='text' name='hotelname' onChange={addFrm.handleChange}  className={'form-control ' + (addFrm.errors.hotelname && addFrm.touched.hotelname ? 'is-invalid' : '')} />
+                {
+                      addFrm.errors.hotelname && addFrm.touched.hotelname
+                      ?
+                      <small className='text-danger'>{addFrm.errors.hotelname}</small>
+                      :
+                      ''
+                   }
             </div>
             <div className="my-3">
                 <label>Hotel Image</label>
                 <input type='file' name='hotelimage' onChange={addFrm.handleChange} className={'form-control ' + (addFrm.errors.hotelimage && addFrm.touched.hotelimage ? 'is-invalid' : '')} />
+                {
+                      addFrm.errors.hotelimage && addFrm.touched.hotelimage
+                      ?
+                      <small className='text-danger'>{addFrm.errors.hotelimage}</small>
+                      :
+                      ''
+                   }
             </div>
             <div className="my-3">
                 <label>Menu Image</label>
                 <input type='file' name='menuimage' onChange={addFrm.handleChange} className={'form-control ' + (addFrm.errors.menuimage && addFrm.touched.menuimage ? 'is-invalid' : '')} />
+                {
+                      addFrm.errors.menuimage && addFrm.touched.menuimage
+                      ?
+                      <small className='text-danger'>{addFrm.errors.menuimage}</small>
+                      :
+                      ''
+                   }
             </div>
             <div className="my-3">
                 <label>Hotel Address</label>
                 <textarea name='address' onChange={addFrm.handleChange} className={'form-control ' + (addFrm.errors.address && addFrm.touched.address ? 'is-invalid' : '')} ></textarea>
+                {
+                      addFrm.errors.address && addFrm.touched.address
+                      ?
+                      <small className='text-danger'>{addFrm.errors.address}</small>
+                      :
+                      ''
+                   }
             </div>
             <div className="my-3">
                 <label>Number of Tables</label>
                 <input name='tables' onChange={addFrm.handleChange} type='text' className={'form-control ' + (addFrm.errors.tables && addFrm.touched.tables ? 'is-invalid' : '')} />
+                {
+                      addFrm.errors.tables && addFrm.touched.tables
+                      ?
+                      <small className='text-danger'>{addFrm.errors.tables}</small>
+                      :
+                      ''
+                   }
             </div>
             <div className="my-3">
                 <label>Per Table Price</label>
                 <input name='price' onChange={addFrm.handleChange} type='text' className={'form-control ' + (addFrm.errors.price && addFrm.touched.price ? 'is-invalid' : '')} />
+                {
+                      addFrm.errors.price && addFrm.touched.price
+                      ?
+                      <small className='text-danger'>{addFrm.errors.price}</small>
+                      :
+                      ''
+                   }
             </div>
             
             <div className="my-3">
                 
-                <button type='submit' className='btn btn-success'>Add Hotel</button>
+                <button type='submit' className='template-btn'>Add Hotel</button>
             </div>
             </form>
         </div>

@@ -10,6 +10,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useFormik } from 'formik'
 
 import * as YUP from 'yup'
+import HotelSchema from '../../schemas/HotelSchema'
+import BookingSchema from '../../schemas/BookingSchema'
 
 
 
@@ -28,6 +30,7 @@ const BookTable = () => {
   },[])
 
   let bookFrm = useFormik({
+    validationSchema : BookingSchema ,
     initialValues : {
       date : "",
       time : "",
@@ -73,7 +76,18 @@ const BookTable = () => {
                     <div className="my-2">
 
                     <label>Select Date</label>
-                    <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} label="Select Date" minDate={today} />
+                      <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} 
+                      label="Select Date" minDate={today}  />
+                      <br/>
+                    
+                    {
+                      bookFrm.errors.date && bookFrm.touched.date
+                      ?
+                      <small className='text-danger'>{bookFrm.errors.date}</small>
+                      :
+                      ''
+                   }
+                   
                     </div>
                     <div className="my-2">
 
@@ -81,16 +95,31 @@ const BookTable = () => {
                     <DemoContainer components={['TimePicker']}>
                     <TimePicker name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
                     </DemoContainer>
+                    {
+                                            bookFrm.errors.time && bookFrm.touched.time
+                                            ?
+                                            <small className='text-danger'>{bookFrm.errors.time}</small>
+                                            :
+                                            ''
+                                        }
                     </div>
                     <div className="my-2">
 
                     <label>Select Table</label>
-                    <input name='tables' onChange={bookFrm.handleChange} type='text' className='form-control'/>
+                    <input name='tables' onChange={bookFrm.handleChange} type='text' className={'form-control' + (bookFrm.errors.tables && bookFrm.touched.tables ? ' is-invalid' : '')}/>
                     <small>6 person/table</small>
+                    <br/>
+                    {
+                                            bookFrm.errors.tables && bookFrm.touched.tables
+                                            ?
+                                            <small className='text-danger'>{bookFrm.errors.tables}</small>
+                                            :
+                                            ''
+                                        }
                     </div>
                     
 
-                    <button type='submit' className='btn-block btn btn-success'>Book Table</button>
+                    <button type='submit' className='btn-block  template-btn'>Book Table</button>
                     
 
                   </div>
