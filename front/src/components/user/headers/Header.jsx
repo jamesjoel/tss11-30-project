@@ -23,7 +23,7 @@ const Header = () => {
             setPathName("Login Registration");
         }
         if(location.pathname=="/booktable"){
-            setPathName("Table Booking");
+            setPathName("Book Your Table Here");
         }
     },[])
 

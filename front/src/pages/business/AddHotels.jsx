@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {useFormik} from 'formik'
 import HotelSchema from '../../schemas/HotelSchema'
 import axios from 'axios'
@@ -7,10 +7,12 @@ import {useNavigate} from 'react-router-dom'
 
 const AddHotels = () => {
     let navigate = useNavigate();
+    let [preloader, setPreloader] = useState(false);
+    
     let addFrm = useFormik({
         validationSchema : HotelSchema,
         initialValues : {
-            hotelname : "",
+        hotelname : "",
         hotelimage : "",
         menuimage : "",
         address : "",
@@ -18,12 +20,15 @@ const AddHotels = () => {
         price : ""
         },
         onSubmit : (formData)=>{
+           setPreloader(true);
+
             axios.post(`${API_URL}/businessmanage/addhotels`, formData, {
                 headers : {
                     Authorization : localStorage.getItem("business-access-token")
                 }
             }).then(response=>{
                 if(response.data.success==true){
+                    setPreloader(false);
                     navigate("/business/manage/viewhotels");
                 }
             })
@@ -63,7 +68,7 @@ const AddHotels = () => {
             
             <div className="my-3">
                 
-                <button type='submit' className='btn btn-success'>Add Hotel</button>
+                <button type='submit' className='btn btn-success'>Add Hotel { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
             </div>
             </form>
         </div>

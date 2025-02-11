@@ -10,6 +10,8 @@ import LoginFrmSchema from '../../schemas/LoginSchema'
 const Login = () => {
     let navigate = useNavigate();
     let [errMsg, setErrMsg] = useState("")
+    let [preloader, setPreloader] = useState(false);
+    
     let loginFrm = useFormik({
         validationSchema : LoginFrmSchema,
         initialValues : {
@@ -17,22 +19,26 @@ const Login = () => {
             password : ""
         },
         onSubmit : (formData)=>{
+           setPreloader(true);
+
            axios
            .post(`${API_URL}/businessauth`, formData)
            .then(response=>{
             
 
              if(response.data.success==true){
+                setPreloader(false);
                 localStorage.setItem("business-access-token", response.data.token)
                 localStorage.setItem("business-name", response.data.business)
                 navigate("/business/manage");
              }
              else{
                 if(response.data.errType==1){
+                    setPreloader(false);
                     setErrMsg("This Username/Email and Password is Incorrect");
                 }
                 if(response.data.errType==2){
-                    
+                    setPreloader(false);
                     setErrMsg("This Password is Incorrect");
                 }
              }
@@ -63,7 +69,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="card-footer">
-                            <button type='submit' className='template-btn'>Login</button>
+                            <button type='submit' className='template-btn'>Login { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
                             <p className='text-danger text-center'>
                                 {
                                     errMsg
