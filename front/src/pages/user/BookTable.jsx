@@ -77,7 +77,7 @@ const BookTable = () => {
                     
                   </div>
                   <div className="card-body">
-                    <div className="my-2">
+                    <div className="my-2 ">
 
                     <label>Select Date</label>
                       <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} 
@@ -90,38 +90,41 @@ const BookTable = () => {
                       <small className='text-danger'>{bookFrm.errors.date}</small>
                       :
                       ''
-                   }
+                    }
                    
                     </div>
                     <div className="my-2">
 
                     <label>Select Time</label>
                     <DemoContainer components={['TimePicker']}>
-                    <TimePicker name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
+                    <TimePicker  name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
                     </DemoContainer>
                     {
-                                            bookFrm.errors.time && bookFrm.touched.time
-                                            ?
-                                            <small className='text-danger'>{bookFrm.errors.time}</small>
-                                            :
-                                            ''
-                                        }
+                      bookFrm.errors.time && bookFrm.touched.time
+                      ?
+                      <small className='text-danger'>{bookFrm.errors.time}</small>
+                      :
+                      ''
+                    }
                     </div>
                     <div className="my-2">
 
                     <label>Select Table</label>
-                    <input name='tables' onChange={bookFrm.handleChange} type='text' className={'form-control' + (bookFrm.errors.tables && bookFrm.touched.tables ? ' is-invalid' : '')}/>
-                    <small>6 person/table</small>
-                    <br/>
+                     <div >
+                     <input name='tables' onChange={bookFrm.handleChange} type='text' className='form-control' />
+                     <small>6 person/table</small>
+                     </div>
+                    
                     {
-                                            bookFrm.errors.tables && bookFrm.touched.tables
-                                            ?
-                                            <small className='text-danger'>{bookFrm.errors.tables}</small>
-                                            :
-                                            ''
-                                        }
+                      bookFrm.errors.tables && bookFrm.touched.tables
+                      ?
+                      <small className='text-danger'>{bookFrm.errors.tables}</small>
+                      :
+                      ''
+                    }
                     </div>
                     
+                  
 
                     <button type='submit' className='btn-block btn btn-success'>Book Table { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
 

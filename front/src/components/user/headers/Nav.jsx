@@ -11,8 +11,8 @@ const Nav = () => {
                             token
                             ?
                             <>
-                            <li className="nav-item"><NavLink className="text-uppercase nav-link font-weight-bold my-2 mx-3" style={{fontSize : "16px", color : "#000"}} to="/my-account">{localStorage.getItem("name")}</NavLink></li>
                             <li className="nav-item"><NavLink className="text-uppercase nav-link font-weight-bold my-2 mx-3" style={{fontSize : "16px", color : "#000"}} to="/logout">logout</NavLink></li>
+                            <li className="nav-item"><NavLink className="text-uppercase nav-link font-weight-bold my-2 mx-3 bg-info rounded " style={{fontSize : "16px", color : "#000"}} to="/my-account">{localStorage.getItem("name")}</NavLink></li>
                             </>
                             :
                             <>

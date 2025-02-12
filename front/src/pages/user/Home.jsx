@@ -29,7 +29,8 @@ const Home = () => {
                 <div className="col-md-5">
                     <div className="section-top">
                         <h3><span className="style-change">we serve</span> <br/>delicious food</h3>
-                        <p className="pt-3">They're fill divide i their yielding our after have him fish on there for greater man moveth, moved Won't together isn't for fly divide mids fish firmament on net.</p>
+                        <p className="pt-3">Join our community of food enthusiasts and let’s make every meal an adventure..</p>
+                        <p>From discovering hidden gems to booking your table in advance, we’ve got you covered.</p>
                     </div>
                 </div>
             </div>

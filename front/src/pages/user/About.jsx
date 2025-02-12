@@ -22,8 +22,8 @@ const About = () => {
                 <div className="col-md-6 align-self-center">
                     <div className="welcome-text mt-5 mt-md-0">
                         <h3><span className="style-change">welcome</span> <br/>to food fun</h3>
-                        <p className="pt-3">Created god gathered don't you yielding herb you had. And isn't, god was saw. Dominion. Great sixth for in unto was. Open can't tree am waters brought. Divide after there. Was.</p>
-                        <p>Created god gathered don't you yielding herb you had. And isn't, god was saw. Dominion. Great sixth for in unto was. Open can't tree waters brought. Divide after there. Was. Created god gathered don't you yielding herb you had. And isn't god.</p>
+                        <p className="pt-3">Welcome to FOODFUN – the ultimate destination for food lovers! Whether you're a seasoned foodie or someone just looking for your next great meal, we're here to make dining out easier and more enjoyable. Our goal is simple: connect you with the best restaurants, exclusive deals, and unforgettable dining experiences..</p>
+                        <p>From discovering hidden gems to booking your table in advance, we’ve got you covered. Explore a variety of cuisines, read reviews from fellow diners, and make reservations at your favorite spots – all in one place. Because we believe that eating out should always be about more than just food, it should be about the experience!</p>
                         <a href="#" className="template-btn mt-3">book a table</a>
                     </div>
                 </div>
