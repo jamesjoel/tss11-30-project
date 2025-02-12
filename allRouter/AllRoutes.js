@@ -8,6 +8,7 @@ routes.use("/api/v1/userauth", require("../controllers/UserAuthController"));
 routes.use("/api/v1/businessauth", require("../controllers/BusinessAuthController"));
 routes.use("/api/v1/adminauth", require("../controllers/AdminAuthController"));
 routes.use("/api/v1/businessmanage", require("../controllers/BusinessManageController"));
+routes.use("/api/v1/hotelbooking", require("../controllers/HotelBookingController"));
 routes.use("/api/v1/hotels", require("../controllers/HotelController"));
 
 

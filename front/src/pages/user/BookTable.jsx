@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Modal  from 'react-bootstrap/Modal'
+import Button  from 'react-bootstrap/Button'
 import Header2 from '../../components/user/headers/Header'
 import dayjs from 'dayjs'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../../constants/API_URL'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -10,6 +12,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useFormik } from 'formik'
 
 import * as YUP from 'yup'
+import HotelSchema from '../../schemas/HotelSchema'
+import BookingSchema from '../../schemas/BookingSchema'
 
 
 
@@ -18,8 +22,13 @@ const start = dayjs().set('hour', 11).startOf('hour');
 const end = dayjs().set('hour', 22).startOf('hour');
 
 const BookTable = () => {
+  let navigate = useNavigate();
   let param = useParams();
   let [hotelInfo, setHoteInfo] = useState({});
+  let [preloader, setPreloader] = useState(false);
+
+  let [showModal, setShowModal] = useState(false)
+  
   useEffect(()=>{
     axios.get(`${API_URL}/hotels/${param.id}`).then(response=>{
       // console.log(response.data);
@@ -28,23 +37,57 @@ const BookTable = () => {
   },[])
 
   let bookFrm = useFormik({
+    validationSchema : BookingSchema ,
     initialValues : {
       date : "",
       time : "",
       tables : ""
     },
     onSubmit : (formData)=>{
-      console.log(formData)
+      if(localStorage.getItem("access-token")){
+        setPreloader(true);
+        formData.hotelId = param.id;
+        axios.post(`${API_URL}/hotelbooking`, formData, {
+          headers : { Authorization : localStorage.getItem("access-token")}
+        })
+        .then(response=>{
+          console.log(response.data);
+        })
+      }else{
+        setShowModal(true)
+      }
+
     }
   })
 
-
+  let goToLogin = ()=>{
+    setShowModal(false);
+    navigate("/login")
+  }
 
 
   return (
     <>
         <Header2 />
-        
+        <Modal show={showModal} data-bs-theme="dark">
+        <Modal.Header>
+          <Modal.Title>Message</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>You are not logged in.... Please Login First then book the table</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=>setShowModal(false)}>Close</Button>
+          <Button onClick={goToLogin} variant="primary">Go To Login</Button>
+        </Modal.Footer>
+        </Modal>
+
+
+
+
+
         <section className="welcome-area my-3" style={{minHeight : "600px"}}>
         <div className="container">
             <div className="row">
@@ -73,7 +116,18 @@ const BookTable = () => {
                     <div className="my-2">
 
                     <label>Select Date</label>
-                    <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} label="Select Date" minDate={today} />
+                      <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} 
+                      label="Select Date" minDate={today}  />
+                      <br/>
+                    
+                    {
+                      bookFrm.errors.date && bookFrm.touched.date
+                      ?
+                      <small className='text-danger'>{bookFrm.errors.date}</small>
+                      :
+                      ''
+                   }
+                   
                     </div>
                     <div className="my-2">
 
@@ -81,16 +135,32 @@ const BookTable = () => {
                     <DemoContainer components={['TimePicker']}>
                     <TimePicker name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
                     </DemoContainer>
+                    {
+                                            bookFrm.errors.time && bookFrm.touched.time
+                                            ?
+                                            <small className='text-danger'>{bookFrm.errors.time}</small>
+                                            :
+                                            ''
+                                        }
                     </div>
                     <div className="my-2">
 
                     <label>Select Table</label>
-                    <input name='tables' onChange={bookFrm.handleChange} type='text' className='form-control'/>
+                    <input name='tables' onChange={bookFrm.handleChange} type='text' className={'form-control' + (bookFrm.errors.tables && bookFrm.touched.tables ? ' is-invalid' : '')}/>
                     <small>6 person/table</small>
+                    <br/>
+                    {
+                                            bookFrm.errors.tables && bookFrm.touched.tables
+                                            ?
+                                            <small className='text-danger'>{bookFrm.errors.tables}</small>
+                                            :
+                                            ''
+                                        }
                     </div>
                     
 
-                    <button type='submit' className='btn-block btn btn-success'>Book Table</button>
+                    <button type='submit' className='btn-block btn btn-success'>Book Table { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+
                     
 
                   </div>

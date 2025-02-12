@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Header2 from '../../components/user/headers/Header'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {useFormik} from 'formik'
@@ -7,6 +7,8 @@ import {API_URL} from '../../constants/API_URL'
 import BusinessSchema from '../../schemas/BusinessSchema'
 
 const Signup = () => {
+    let [preloader, setPreloader] = useState(false);
+
     let navigate = useNavigate();
     let SignupFrm = useFormik({
         validationSchema : BusinessSchema,
@@ -22,8 +24,10 @@ const Signup = () => {
             repassword : ""
         },
         onSubmit : (formData)=>{
+            setPreloader(true);
             axios.post(`${API_URL}/business`, formData)
             .then(response=>{
+                setPreloader(false);
                 console.log(response.data);
                 navigate("/business/login")
             })
@@ -48,7 +52,7 @@ const Signup = () => {
                         <div className="card-body">
                             <div className="my-2">
                                 <label>Name</label>
-                                <input name='name' onChange={SignupFrm.handleChange} type='text' className='form-control' />
+                                <input name='name' onChange={SignupFrm.handleChange} type='text' className={'form-control ' + (SignupFrm.errors.name && SignupFrm.touched.name ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.name && SignupFrm.touched.name
                                     ?
@@ -59,7 +63,7 @@ const Signup = () => {
                             </div>
                             <div className="my-2">
                                 <label>Business Name</label>
-                                <input name='business_name' onChange={SignupFrm.handleChange} type='text' className='form-control' />
+                                <input name='business_name' onChange={SignupFrm.handleChange} type='text' className={'form-control ' + (SignupFrm.errors.business_name && SignupFrm.touched.business_name ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.business_name && SignupFrm.touched.business_name
                                     ?
@@ -70,7 +74,7 @@ const Signup = () => {
                             </div>
                             <div className="my-2">
                                 <label>Username/Email</label>
-                                <input name='email' onChange={SignupFrm.handleChange} type='text' className='form-control' />
+                                <input name='email' onChange={SignupFrm.handleChange} type='text' className={'form-control ' + (SignupFrm.errors.email && SignupFrm.touched.email ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.email && SignupFrm.touched.email
                                     ?
@@ -81,7 +85,7 @@ const Signup = () => {
                             </div>
                             <div className="my-2">
                                 <label>Password</label>
-                                <input name='password' onChange={SignupFrm.handleChange} type='password' className='form-control' />
+                                <input name='password' onChange={SignupFrm.handleChange} type='password' className={'form-control ' + (SignupFrm.errors.password && SignupFrm.touched.password ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.password && SignupFrm.touched.password
                                     ?
@@ -92,7 +96,7 @@ const Signup = () => {
                             </div>
                             <div className="my-2">
                                 <label>Re-Password</label>
-                                <input  name='repassword' onChange={SignupFrm.handleChange} type='password' className='form-control' />
+                                <input  name='repassword' onChange={SignupFrm.handleChange} type='password' className={'form-control ' + (SignupFrm.errors.repassword && SignupFrm.touched.repassword ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.repassword && SignupFrm.touched.repassword
                                     ?
@@ -103,7 +107,7 @@ const Signup = () => {
                             </div>
                             <div className="my-2">
                                 <label>Contact</label>
-                                <input name='contact' onChange={SignupFrm.handleChange} type='text' className='form-control' />
+                                <input name='contact' onChange={SignupFrm.handleChange} type='text' className={'form-control ' + (SignupFrm.errors.contact && SignupFrm.touched.contact ? 'is-invalid' : '')} />
                                 {
                                     SignupFrm.errors.contact && SignupFrm.touched.contact
                                     ?
@@ -115,7 +119,7 @@ const Signup = () => {
                             
                             <div className="my-2">
                                 <label>Address</label>
-                                <textarea name='address' onChange={SignupFrm.handleChange} className='form-control' ></textarea>
+                                <textarea name='address' onChange={SignupFrm.handleChange} className={'form-control ' + (SignupFrm.errors.address && SignupFrm.touched.address ? 'is-invalid' : '')} ></textarea>
                                 {
                                     SignupFrm.errors.address && SignupFrm.touched.address
                                     ?
@@ -127,7 +131,7 @@ const Signup = () => {
                             
                         </div>
                         <div className="card-footer">
-                            <button type='submit' className='template-btn'>Register</button>
+                            <button type='submit' className='template-btn'>Register { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
                         </div>
                     </div>
                 </div>

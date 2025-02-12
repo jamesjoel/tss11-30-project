@@ -5,25 +5,29 @@ import TopSection from '../../TopSection'
 
 const Header = () => {
     let location = useLocation()
+    
     let [pathName, setPathName] = useState("");
     useEffect(()=>{
         if(location.pathname=="/about"){
             setPathName("About");
         }
-        if(location.pathname=="/login"){
+        else if(location.pathname=="/login"){
             setPathName("User Login");
         }
-        if(location.pathname=="/signup"){
+        else if(location.pathname=="/signup"){
             setPathName("User Registration");
         }
-        if(location.pathname=="/business/signup"){
+        else if(location.pathname=="/business/signup"){
             setPathName("Business Registration");
         }
-        if(location.pathname=="/business/login"){
+        else if(location.pathname=="/business/login"){
             setPathName("Login Registration");
         }
-        if(location.pathname=="/booktable"){
-            setPathName("Table Booking");
+        else if(location.pathname=="/booktable"){
+            setPathName("Book Your Table Here");
+        }else{
+            
+            setPathName("Book Your Table Here");
         }
     },[])
 

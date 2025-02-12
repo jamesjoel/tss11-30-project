@@ -5,7 +5,7 @@ let BusinessSchema = YUP.object({
     email : YUP.string().email("Email Id not Correct").required("Insert Your Email Id"),
     password : YUP.string().required("Insert Your Passowrd"),
     repassword : YUP.string().oneOf([YUP.ref("password")], "Password and Re-Password should be same").required("Insert Your Re-Password"),
-    contact : YUP.number().typeError("Insert Numbers only").required("Insert Your Number"),
+    contact : YUP.number().typeError("Insert Numbers only").required("Insert Your Number").min(999999999, "Contact Number Should be 10 Digit").max(9999999999, "Contact Number Should be 10 Digit").required("Insert Your Contact Number"),
     
     
     address : YUP.string().required("Insert Your Business Address"),

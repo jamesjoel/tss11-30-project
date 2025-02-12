@@ -13,7 +13,7 @@ const HotelInfo = (props) => {
                                             <h5>{props.hotel.hotelname}</h5>
                                         </div>
                                         <p className="pt-3">{props.hotel.address}</p>
-                                            <NavLink to={`/booktable/${props.hotel._id}`} className='btn btn-danger btn-sm'>Book Table</NavLink>
+                                            <NavLink to={`/booktable/${props.hotel._id}`} className=' template-btn btn-sm'>Book Table</NavLink>
                                     </div>
                                 </div>
                             </div>
