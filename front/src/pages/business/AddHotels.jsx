@@ -110,7 +110,7 @@ const AddHotels = () => {
             
             <div className="my-3">
                 
-                <button type='submit' className='btn btn-success'>Add Hotel { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+                <button type='submit' className='btn btn-success'>Add Hotel { preloader ? <span className=' spinner-border spinner-border-sm'></span> : '' }</button>
             </div>
             </form>
         </div>

@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="col-md-4">
                         <div className="single-widget single-widget1">
                             <a href="index.html"><img src="assets/images/logo/logo2.png" alt="" /></a>
-                            <p className="mt-3">Which morning fourth great won't is to fly bearing man. Called unto shall seed, deep, herb set seed land divide after over first creeping. First creature set upon stars deep male gathered said she'd an image spirit our</p>
+                            <p className="mt-3">Welcome to FOODFUN – the ultimate destination for food lovers! Whether you're a seasoned foodie or someone just looking for your next great meal, we're here to make dining out easier and more enjoyable. Our goal is simple: connect you with the best restaurants, exclusive deals, and unforgettable dining experiences..</p>
                         </div>
                     </div>
                     <div className="col-md-4">
