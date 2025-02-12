@@ -44,16 +44,21 @@ const BookTable = () => {
       tables : ""
     },
     onSubmit : (formData)=>{
+      setPreloader(true);
+
       if(localStorage.getItem("access-token")){
-        setPreloader(true);
         formData.hotelId = param.id;
         axios.post(`${API_URL}/hotelbooking`, formData, {
           headers : { Authorization : localStorage.getItem("access-token")}
         })
         .then(response=>{
+          setPreloader(false);
+
           console.log(response.data);
         })
       }else{
+        setPreloader(false);
+
         setShowModal(true)
       }
 
@@ -95,7 +100,7 @@ const BookTable = () => {
               <img src="/assets/images/hotel1.jpg" className="img-fluid" style={{height : "600px", width : "100%"}} alt="" />
               <h3 className='my-2'>{hotelInfo.hotelname}</h3>
               <p>{hotelInfo.address}</p>
-              <p>Timing : 11:00AM - 10:00PM</p>
+              <p>Timing : 11:00AM - 11:00PM</p>
               <h5 className='badge bg-info text-light'>4.3</h5>
               <h5 className='text-dark'>Menu</h5>
                 <div className="row">
@@ -162,7 +167,7 @@ const BookTable = () => {
                     
                   
 
-                    <button type='submit' className='btn-block btn btn-success'>Book Table { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+                    <button type='submit' className='btn-block btn btn-success'>Book Table { preloader ? <img src='/assets/images/preloader3.gif' style={{height : "20px"}} /> : '' }</button>
 
                     
 

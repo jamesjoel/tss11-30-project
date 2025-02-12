@@ -206,7 +206,7 @@ const Signup = () => {
                                     </div>
                                 </div>
                                 <div className="card-footer">
-                                    <button type='submit' className='template-btn'>Signup { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+                                    <button type='submit' className='template-btn'>Signup { preloader ? <img src='/assets/images/preloader3.gif' style={{height : "20px"}} /> : '' }</button>
                                 </div>
                             </div>
                         </div>
