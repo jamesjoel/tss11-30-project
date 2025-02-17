@@ -485,7 +485,7 @@ input:focus,textarea:focus{
     transform:scale(1.1, 1.1)
 }
 .food-area .single-food:hover .food-content{
-    background:#ffb606
+    /* background:#ffb606 */
 }
 .food-area .single-food:hover .food-content .style-change{
     color:#131230

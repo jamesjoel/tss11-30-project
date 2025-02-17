@@ -83,7 +83,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="card-footer">
-                            <button type='submit' className='template-btn'>Login { preloader ? <span className='spinner-border spinner-border-sm'></span> : '' }</button>
+                            <button type='submit' className='template-btn'>Login { preloader ? <img src='/assets/images/preloader3.gif' style={{height : "20px"}} /> : '' }</button>
                             <p className='text-danger text-center'>
                                 {
                                     errMsg
