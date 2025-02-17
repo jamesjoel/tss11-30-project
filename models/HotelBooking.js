@@ -7,9 +7,11 @@ const HotelBookingSchema = mongoose.Schema({
     tables : String,
     hotelId : { type : mongoose.Schema.Types.ObjectId, ref : "Hotel" },
     userId : { type : mongoose.Schema.Types.ObjectId, ref : "User" },
-    createdAt : { type : Date, default : new Date()}
+    businessId : { type : mongoose.Schema.Types.ObjectId, ref : "Business" },
+    createdAt : { type : Date, default : new Date()},
+    status : { type : Number, default : 1 }
 })
 
-const HotelBooking = mongoose.model("hotelbooking", HotelBookingSchema);
+const HotelBooking = mongoose.model("Hotelbooking", HotelBookingSchema);
 
 module.exports = HotelBooking;

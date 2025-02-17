@@ -6,11 +6,12 @@ const HotelSchema = mongoose.Schema({
     hotelimage : String,
     menuimage : String,
     address : String,
+    rating : { type : Number, default : 0 },
     tables : Number,
     price : Number,
-    businessid : { type : mongoose.Schema.Types.ObjectId, ref : "Business" }
+    businessId : { type : mongoose.Schema.Types.ObjectId, ref : "Business" }
 })
 
-const Hotel = mongoose.model("hotel", HotelSchema);
+const Hotel = mongoose.model("Hotel", HotelSchema);
 
 module.exports = Hotel;

@@ -26,13 +26,19 @@ const BookTable = () => {
   let param = useParams();
   let [hotelInfo, setHoteInfo] = useState({});
   let [preloader, setPreloader] = useState(false);
+  let [price, setPrice] = useState(0)
+  let [totalPrice, setTotalPrice] = useState(0)
+  let [businessId, setBusinessId] = useState()
+
 
   let [showModal, setShowModal] = useState(false)
   
   useEffect(()=>{
     axios.get(`${API_URL}/hotels/${param.id}`).then(response=>{
-      // console.log(response.data);
+      console.log(response.data);
       setHoteInfo(response.data);
+      setPrice(response.data.price);
+      setBusinessId(response.data.businessId._id)
     })
   },[])
 
@@ -47,6 +53,7 @@ const BookTable = () => {
       if(localStorage.getItem("access-token")){
         setPreloader(true);
         formData.hotelId = param.id;
+        formData.businessId = businessId;
         axios.post(`${API_URL}/hotelbooking`, formData, {
           headers : { Authorization : localStorage.getItem("access-token")}
         })
@@ -65,6 +72,10 @@ const BookTable = () => {
     navigate("/login")
   }
 
+  let calcPrice = (event)=>{
+    let numOftable = event.target.value;
+    setTotalPrice(numOftable*price);
+  }
 
   return (
     <>
@@ -94,7 +105,12 @@ const BookTable = () => {
               <div className="col-md-8">
               <img src="/assets/images/hotel1.jpg" className="img-fluid" style={{height : "600px", width : "100%"}} alt="" />
               <h3 className='my-2'>{hotelInfo.hotelname}</h3>
-              <p>{hotelInfo.address}</p>
+              <p className="pt-3">
+                <i class="fa fa-users" aria-hidden="true"></i> {hotelInfo.businessId ? hotelInfo.businessId.business_name   : ''}
+                <br />
+                <i class="fa fa-map-marker" aria-hidden="true"></i> {hotelInfo.address}
+              </p>
+              
               <p>Timing : 11:00AM - 10:00PM</p>
               <h5 className='badge bg-info text-light'>4.3</h5>
               <h5 className='text-dark'>Menu</h5>
@@ -115,9 +131,12 @@ const BookTable = () => {
                   <div className="card-body">
                     <div className="my-2 ">
 
-                    <label>Select Date</label>
-                      <DatePicker name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} 
+                    <label>Select Date</label><br />
+                    <div style={{width : "80%"}}>
+
+                      <DatePicker className='form-control' name='date'  onChange={(value)=>bookFrm.setFieldValue("date", (value.$D+"-"+(value.$M+1)+"-"+value.$y))} 
                       label="Select Date" minDate={today}  />
+                      </div>
                       <br/>
                     
                     {
@@ -128,13 +147,16 @@ const BookTable = () => {
                       ''
                     }
                    
-                    </div>
+                    
                     <div className="my-2">
 
                     <label>Select Time</label>
+                    <div style={{width : "80%"}}>
+
                     <DemoContainer components={['TimePicker']}>
-                    <TimePicker  name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
+                    <TimePicker   name='time' onChange={(value)=>bookFrm.setFieldValue("time", (value.$H+":"+value.$m))} maxTime={end} minTime={start} />
                     </DemoContainer>
+                    </div>
                     {
                       bookFrm.errors.time && bookFrm.touched.time
                       ?
@@ -147,7 +169,7 @@ const BookTable = () => {
 
                     <label>Select Table</label>
                      <div >
-                     <input name='tables' onChange={bookFrm.handleChange} type='text' className='form-control' />
+                     <input style={{width : "79%", height : "50px"}} placeholder='Table Number' name='tables' onChange={(e)=>{ bookFrm.handleChange(e); calcPrice(e)}} type='text' className='form-control' />
                      <small>6 person/table</small>
                      </div>
                     
@@ -158,6 +180,18 @@ const BookTable = () => {
                       :
                       ''
                     }
+                    </div>
+                     <div className='my-2'>
+                    <label>Price/Table</label>
+                     <input disabled style={{width : "79%", height : "50px"}} type='text' value={hotelInfo.price} className='form-control' />
+                     
+                     </div>
+                     <div className='my-2'>
+                      <label>Total Price</label>
+                     <input style={{width : "79%", height : "50px"}} disabled value={totalPrice} type='text' className='form-control' />
+                     
+                     </div>
+                    
                     </div>
                     
                   

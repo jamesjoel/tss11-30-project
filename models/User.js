@@ -13,6 +13,6 @@ let UserSchema = mongoose.Schema({
     gender : String
 })
 
-let User = mongoose.model("user", UserSchema);
+let User = mongoose.model("User", UserSchema);
 
 module.exports = User;

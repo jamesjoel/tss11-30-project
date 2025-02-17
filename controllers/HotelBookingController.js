@@ -2,6 +2,8 @@ const routes = require("express").Router();
 const jwt = require("jsonwebtoken");
 const HotelBooking = require("../models/HotelBooking")
 routes.post("/", async(req, res)=>{
+    // console.log(req.body);return;
+
     if(req.headers.authorization)
     {
         let token = req.headers.authorization;
@@ -20,6 +22,7 @@ routes.post("/", async(req, res)=>{
 })
 
 
+
 routes.get("/list/owner", async(req, res)=>{
     if(req.headers.authorization){
         let token = req.headers.authorization;
@@ -33,5 +36,11 @@ routes.get("/list/owner", async(req, res)=>{
         res.send({false:false})
     }
 })
+
+
+// routes.get("/deleteall", async(req, res)=>{
+//     await HotelBooking.collection.drop();
+//     res.send({success:true});
+// })
 
 module.exports = routes;

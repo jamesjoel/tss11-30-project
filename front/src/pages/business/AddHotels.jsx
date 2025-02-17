@@ -22,7 +22,7 @@ const AddHotels = () => {
         onSubmit : (formData)=>{
            setPreloader(true);
 
-            axios.post(`${API_URL}/businessmanage/addhotels`, formData, {
+            axios.post(`${API_URL}/businessmanage/hotels`, formData, {
                 headers : {
                     Authorization : localStorage.getItem("business-access-token")
                 }

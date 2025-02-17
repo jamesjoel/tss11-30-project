@@ -8,10 +8,8 @@ let BusinessSchema = mongoose.Schema({
     email : String,
     password : String,
     contact : String,
-    image : String,
-    rating : String,
     address : String
-}, {collection : "business"});
+});
 
-let Bus = mongoose.model("business", BusinessSchema)
+let Bus = mongoose.model("Business", BusinessSchema)
 module.exports = Bus;

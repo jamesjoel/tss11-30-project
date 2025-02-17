@@ -9,5 +9,7 @@ import MyAccout from "./user/MyAccout";
 import BusinessLogout from './business/Logout'
 import BusinessSignup from "./business/Signup";
 import Manage from "./business/Manage";
+import BookingDetail from "./user/BookingDetail";
+import MyBooking from "./user/MyBooking";
 
-export {About, Home, Login, BusinessLogout, Manage, Signup, Signup2, BusinessLogin, BusinessSignup, Logout, MyAccout}
+export {About, Home, MyBooking, Login, BusinessLogout, BookingDetail, Manage, Signup, Signup2, BusinessLogin, BusinessSignup, Logout, MyAccout}

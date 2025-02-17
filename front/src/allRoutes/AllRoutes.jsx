@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import {Routes, Route, Outlet, useNavigate} from 'react-router-dom'
+import {Routes, Route, Outlet, useNavigate, NavLink} from 'react-router-dom'
+import Header from '../components/user/headers/Header'
 import {
   Home,
   About, 
@@ -11,7 +12,9 @@ import {
   Logout,
   MyAccout,
   BusinessLogout,
-  Manage
+  BookingDetail,
+  Manage,
+  MyBooking
 } from '../pages'
 import Dashboard from '../pages/business/Dashboard'
 import ViewHotels from '../pages/business/ViewHotels'
@@ -36,6 +39,8 @@ const AllRoutes = () => {
 
           <Route path='logout' element={<Logout />} />
           <Route path='my-account' element={<MyAccout />} />
+          <Route path='bookingdetail' element={<BookingDetail />} />
+          <Route path='my-booking' element={<MyBooking />} />
 
         </Route>
 
@@ -76,7 +81,24 @@ let UserProtactedRoutes = ()=>{
   return(
     <>
     
-    <Outlet />
+    <Header />
+    <section className="welcome-area my-4" style={{minHeight : "600px"}}>
+        <div className="container">
+            <ul className='nav bg-dark p-2'>
+              <li className='nav-item'>
+                <NavLink className='nav-link text-light p-3' to='/my-account'>My Account</NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link text-light p-3' to='/my-booking'>My Booking</NavLink>
+              </li>
+              
+              <li className='nav-item'>
+                <NavLink className='nav-link text-light p-3' to='/logout'>Logout</NavLink>
+              </li>
+            </ul>
+      <Outlet />
+        </div>
+    </section>
     </>
   )
 }
